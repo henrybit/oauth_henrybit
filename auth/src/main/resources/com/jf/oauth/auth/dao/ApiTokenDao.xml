@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.oauth.auth.dao.ApiTokenDao">
+    <resultMap type="ApiToken" id="apiToken">
+        <id property="id" column="id" />
+        <result property="clientId" column="client_id" />
+        <result property="userName" column="user_name" />
+        <result property="token" column="token" />
+        <result property="tokenExpireTime" column="token_expire_time" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="dataStatus" column="data_status" />
+    </resultMap>
+
+    <select id="getList" parameterType="Map" resultMap="apiToken">
+        select * from api_token
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="clientId!=null">
+                and client_id=#{clientId}
+            </if>
+            <if test="userName!=null">
+            	and user_name=#{userName}
+            </if>
+            <if test="expireTime!=null">
+            	<![CDATA[and token_expire_time>=#{expireTime}]]>
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        <if test="start!=null and end!=null">
+        limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="getOne" parameterType="Map" resultMap="apiToken">
+        select * from api_token
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="clientId!=null">
+                and client_id=#{clientId}
+            </if>
+            <if test="userName!=null">
+            	and user_name=#{userName}
+            </if>
+            <if test="expireTime!=null">
+            	<![CDATA[and token_expire_time>=#{expireTime}]]>
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        order by id desc
+        limit 1
+    </select>
+
+    <insert id="addOne" parameterType="apiToken" useGeneratedKeys="true" keyProperty="id">
+        insert into api_token (id,client_id,user_name,token,token_expire_time,create_time,update_time,data_status)
+        values(null,#{clientId},#{userName},#{token},#{tokenExpireTime},#{createTime},#{updateTime},#{dataStatus})
+    </insert>
+
+    <update id="deleteOne" parameterType="Map">
+        update api_token set data_status=0 where id=#{id}
+    </update>
+
+    <update id="updateOne" parameterType="Map">
+        update api_token
+        <set>
+            <if test="clientId!=null">
+                client_id=#{clientId},
+            </if>
+            <if test="expireTime!=null">
+            	token_expire_time=#{expireTime},
+            </if>
+        </set>
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                id=#{id}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="dropOne" parameterType="Map">
+        delete from api_token where id=#{id}
+    </delete>
+</mapper>

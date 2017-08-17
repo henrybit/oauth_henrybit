@@ -3,7 +3,7 @@
  <configuration>
    <!-- entity aliases -->
   <typeAliases>
-   <package name="com.jf.oauth.entity"/>
+   <package name="com.jf.oauth.core.entity"/>
   </typeAliases>
   
   <!-- mapper xml -->

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.oauth.auth.dao.AppTrustDao">
+    <resultMap type="AppAuthTrust" id="appAuthTrust">
+        <id property="id" column="id" />
+        <result property="ip" column="ip" />
+        <result property="name" column="name" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="dataStatus" column="data_status" />
+    </resultMap>
+
+    <select id="getList" parameterType="Map" resultMap="appAuthTrust">
+        select * from app_auth_trust
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="ip!=null">
+                and ip=#{ip}
+            </if>
+            <if test="name!=null">
+            	and name=#{name}
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        <if test="start!=null and end!=null">
+        limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="getOne" parameterType="Map" resultMap="appAuthTrust">
+        select * from app_auth_trust
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="ip!=null">
+                and ip=#{ip}
+            </if>
+            <if test="name!=null">
+            	and name=#{name}
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <insert id="addOne" parameterType="appAuthTrust" useGeneratedKeys="true" keyProperty="id">
+        insert into app_auth_trust (id,name,ip,create_time,update_time,data_status)
+        values(null,#{name},#{ip},#{createTime},#{updateTime},#{dataStatus})
+    </insert>
+
+    <update id="deleteOne" parameterType="Map">
+        update app_auth_trust set data_status=0 where id=#{id}
+    </update>
+
+    <update id="updateOne" parameterType="Map">
+        update app_auth_trust
+        <set>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+            <if test="ip!=null">
+                ip=#{ip},
+            </if>
+        </set>
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                id=#{id}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="dropOne" parameterType="Map">
+        delete from app_auth_trust where id=#{id}
+    </delete>
+</mapper>

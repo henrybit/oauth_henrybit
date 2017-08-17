@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.oauth.auth.dao.AppAuthCodeDao">
+    <resultMap type="AppAuthCode" id="appAuthCode">
+        <id property="id" column="id" />
+        <result property="appId" column="app_id" />
+        <result property="appSecret" column="app_secret" />
+        <result property="authCode" column="auth_code" />
+        <result property="codeExpireTime" column="code_expire_time" />
+        <result property="accessToken" column="access_token" />
+        <result property="tokenExpireTime" column="token_expire_time" />
+        <result property="grantType" column="grant_type" />
+        <result property="extraInfo" column="extra_info" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="dataStatus" column="data_status" />
+    </resultMap>
+
+    <select id="getList" parameterType="Map" resultMap="appAuthCode">
+        select * from app_auth_code
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="appId!=null">
+                and app_id=#{appId}
+            </if>
+            <if test="appSecret!=null">
+                and app_secret=#{appSecret}
+            </if>
+            <if test="authCode!=null">
+                and auth_code=#{authCode}
+            </if>
+            <if test="accessToken!=null">
+                and access_token=#{accessToken}
+            </if>
+            <if test="grantType!=null">
+            	and grant_type=#{grantType}
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        <if test="start!=null and end!=null">
+        limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="getOne" parameterType="Map" resultMap="appAuthCode">
+        select * from app_auth_code
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="appId!=null">
+                and app_id=#{appId}
+            </if>
+            <if test="appSecret!=null">
+                and app_secret=#{appSecret}
+            </if>
+            <if test="authCode!=null">
+                and auth_code=#{authCode}
+            </if>
+            <if test="accessToken!=null">
+                and access_token=#{accessToken}
+            </if>
+            <if test="grantType!=null">
+            	and grant_type=#{grantType}
+            </if>
+            <if test="dataStatus==null">
+                and data_status=1
+            </if>
+            <if test="dataStatus!=null">
+                and data_status=#{dataStatus}
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <insert id="addOne" parameterType="appAuthCode" useGeneratedKeys="true" keyProperty="id">
+        insert into app_auth_code (id,app_id,app_secret,auth_code,code_expire_time,access_token,token_expire_time,grant_type,extra_info,create_time,update_time,data_status)
+        values(null,#{appId},#{appSecret},#{authCode},#{codeExpireTime},#{accessToken},#{tokenExpireTime},#{grantType},#{extraInfo},#{createTime},#{updateTime},#{dataStatus})
+    </insert>
+
+    <update id="deleteOne" parameterType="Map">
+        update app_auth_code set data_status=0 where id=#{id}
+    </update>
+
+    <update id="updateOne" parameterType="Map">
+        update app_auth_code
+        <set>
+            <if test="appSecret!=null">
+                app_secret=#{appSecret},
+            </if>
+            <if test="appId!=null">
+                app_id=#{appId},
+            </if>
+            <if test="codeExpireTime!=null">
+                code_expire_time=#{codeExpireTime},
+            </if>
+            <if test="accessToken!=null">
+                access_token=#{accessToken},
+            </if>
+            <if test="tokenExpireTime!=null">
+                token_expire_time=#{tokenExpireTime},
+            </if>
+            <if test="grantType!=null">
+            	grant_type=#{grantType},
+            </if>
+            <if test="extraInfo!=null">
+            	extra_info=#{extraInfo},
+            </if>
+        </set>
+        <trim prefix="WHERE"  suffix="" prefixOverrides="AND |OR ">
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="authCode!=null">
+                and auth_code=#{authCode}
+            </if>
+        </trim>
+    </update>
+
+    <delete id="dropOne" parameterType="Map">
+        delete from app_auth_code where id=#{id}
+    </delete>
+</mapper>
