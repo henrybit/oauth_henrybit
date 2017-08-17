@@ -97,7 +97,7 @@ public class RsaTools {
 	/**
 	 * 解密，三步走
 	 * @param key
-	 * @param encodedText
+	 * @param encodeOri
 	 * @return
 	 */
 	public static String rsaDecode(PrivateKey key, byte[] encodeOri) {
@@ -113,28 +113,28 @@ public class RsaTools {
 
 	public static void main(String[] args) throws Exception {
 		String data = "hello world";
-//		Map<String, byte[]> keyMap = generateKeyBytes();
-//		PublicKey publicKey = restorePublicKey(keyMap.get(PUBLIC_KEY));
-//		System.out.println("公钥："+Base64Tools.encode(publicKey.getEncoded()));
-//		
-//		byte[] encodedText = rsaEncode(publicKey, data.getBytes());
-//		PrivateKey privateKey = restorePrivateKey(keyMap.get(PRIVATE_KEY));
-//		System.out.println("私钥："+Base64Tools.encode(privateKey.getEncoded()));
+		Map<String, byte[]> keyMap = generateKeyBytes();
+		PublicKey publicKey = restorePublicKey(keyMap.get(PUBLIC_KEY));
+		System.out.println("公钥："+Base64Tools.encode(publicKey.getEncoded()));
+
+		byte[] encodedText = rsaEncode(publicKey, data.getBytes());
+		PrivateKey privateKey = restorePrivateKey(keyMap.get(PRIVATE_KEY));
+		System.out.println("私钥："+Base64Tools.encode(privateKey.getEncoded()));
 //		
 //		String ndata = rsaDecode(privateKey, encodedText);
 //		System.out.println("encode=" + new String(encodedText));
 //		System.out.println("ndata=" + ndata);
 		
-		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-		
-		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64Tools.decodeByte(SecurityTools.rsaPublicKeyStr));
-		PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec);
-		byte[] encodedText1 = rsaEncode(publicKey1, data.getBytes());
-		System.out.println(Base64Tools.encode(encodedText1));
-		
-		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64Tools.decodeByte(SecurityTools.rsaPrivateKeyStr));
-		PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
-		String ndata1 = rsaDecode(privateKey1, encodedText1);
-		System.out.println("ndata="+ndata1);
+//		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+//
+//		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64Tools.decodeByte(SecurityTools.rsaPublicKeyStr));
+//		PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec);
+//		byte[] encodedText1 = rsaEncode(publicKey1, data.getBytes());
+//		System.out.println(Base64Tools.encode(encodedText1));
+//
+//		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64Tools.decodeByte(SecurityTools.rsaPrivateKeyStr));
+//		PrivateKey privateKey1 = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+//		String ndata1 = rsaDecode(privateKey1, encodedText1);
+//		System.out.println("ndata="+ndata1);
 	}
 }

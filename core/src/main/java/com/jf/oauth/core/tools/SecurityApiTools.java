@@ -7,7 +7,7 @@ package com.jf.oauth.core.tools;
  */
 public class SecurityApiTools {
 	//金蝶交互密码
-	protected static String EAS_PASSWORD = "@321eas20170807!";
+	protected static String EAS_PASSWORD = "&6fdhau1!fue_";
 	
 	/**
 	 * 加密金蝶交互信息
