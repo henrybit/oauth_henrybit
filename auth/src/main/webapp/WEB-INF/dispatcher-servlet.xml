@@ -37,7 +37,7 @@
     <!-- scan -->
     <context:component-scan base-package="com.jf.oauth.auth.dao" />
     <context:component-scan base-package="com.jf.oauth.auth.service" />
-    <context:component-scan base-package="com.jf.oauth.api" />
+    <context:component-scan base-package="com.jf.oauth.auth.controller" />
     <context:component-scan base-package="com.jf.oauth.core.entity" />
 
     <!--<mvc:interceptors>-->
