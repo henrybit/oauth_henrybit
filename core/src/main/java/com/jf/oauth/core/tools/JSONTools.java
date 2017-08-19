@@ -1,7 +1,6 @@
 package com.jf.oauth.core.tools;
 
 import com.google.gson.Gson;
-import com.jf.oauth.core.entity.response.EasOriResponse;
 
 import java.lang.reflect.Type;
 
@@ -55,7 +54,5 @@ public class JSONTools {
     
     public static void main(String[] args) {
     	String json = "{\"_cid\":\"a4b5a28a-cc71-4138-b760-a42ff1e08c52\",\"_key\":\"2d01d532-fc3e-4dca-8789-02b38aab0783\",\"code\":null,\"data\":{\"extraData\":{\"xtToken\":\"Vf7W9vvndb4dyrNm8Ms9292Oc+dPG+Mmhj1hPnyIj1Y=\",\"weiboEnable\":false},\"accessToken\":\"IIfQVw5mx2izGMmr7NZMNA3Rg3qzvk6V4huxOQRQDFdwRRE6UFXkWcksoxeuzpGQfRiZKZfV155UI3KSIvsMc\\\\/ljKWpuMy0A\"},\"error\":\"0\",\"errorCode\":0,\"isIjf\":\"true\",\"name\":\"张玲\",\"personId\":\"10019046\",\"sessionId\":\"35627967353436795648566c494546315a7941774f4341784e6a6f7a4e446f304e694244553151674d6a41784e773d3d\",\"success\":true}";
-    	EasOriResponse response = JSONTools.parserJson(json, EasOriResponse.class);
-    	System.out.println(response.getData().getAccessToken());
     }
 }

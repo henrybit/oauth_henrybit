@@ -109,7 +109,7 @@ public class AuthorizeController {
             //获取授权码
             String authorizationCode = customCode; //如果有自定义授权码，优先采用自定义授权码
             if (StringTools.isEmpty(authorizationCode)) {
-	            String responseType = oauthRequest.getParam(OAuth.OAUTH_RESPONSE_TYPE);
+	            String responseType = request.getParameter(OAuth.OAUTH_RESPONSE_TYPE);
 	            if (responseType.equals(ResponseType.CODE.toString())) {
 	                OAuthIssuerImpl oAuthIssuer = new OAuthIssuerImpl(new MD5Generator());
 	                authorizationCode = oAuthIssuer.authorizationCode();
@@ -122,7 +122,7 @@ public class AuthorizeController {
                 throw new Exception("创建AuthCode失败");
 
             //得到到客户端重定向地址
-            redirectURI = oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI);
+            redirectURI = request.getParameter(OAuth.OAUTH_REDIRECT_URI);
             //进行OAuth响应构建
             successResponse = OAuthASResponse.authorizationResponse(request, HttpServletResponse.SC_OK)
                     .setCode(authorizationCode)
